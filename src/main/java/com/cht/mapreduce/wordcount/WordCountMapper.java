@@ -28,7 +28,7 @@ import java.io.IOException;
  *
  * 该map函数是读一行调用一次
  *
- * map输出的结果应该是<hello,1><word,1> <hadoop,><spark,1> <hive,1><hadoop,1> <hello,1> <hello,1>
+ * map输出的结果应该是<hello,1><word,1> <hadoop,><spark,1> <hive,1><hadoop,1> <hello,1> <hello,1>,其实就是给出现的单词打上一个标记
  *
  */
 
