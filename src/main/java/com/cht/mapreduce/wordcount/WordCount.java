@@ -27,6 +27,9 @@ public class WordCount  {
         Configuration conf=new Configuration();
         Job job=Job.getInstance(conf);
 
+        //设置驱动类
+        job.setJarByClass(WordCount.class);
+
         //指定map类和输出key和输出value的类型
         job.setMapperClass(WordCountMapper.class);
         job.setMapOutputKeyClass(Text.class);
