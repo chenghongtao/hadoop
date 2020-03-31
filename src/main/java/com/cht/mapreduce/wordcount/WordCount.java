@@ -4,10 +4,11 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.FileInputFormat;
-import org.apache.hadoop.mapred.FileOutputFormat;
-import org.apache.hadoop.mapred.JobConf;
+import org.apache.hadoop.mapred.lib.CombineFileInputFormat;
+import org.apache.hadoop.mapred.lib.CombineTextInputFormat;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
 
@@ -41,13 +42,24 @@ public class WordCount  {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 
+        //设置切片大小 330 byte
+        //FileInputFormat.setMaxInputSplitSize(job,330);
+        //FileInputFormat.setMaxInputSplitSize(job,330);
+
+        //合并文件进行maptask任务划分
+        //job.setInputFormatClass(CombineFileInputFormat.class);
+        //设置为10M，切片大小设置为10M
+        //CombineFileInputFormat.setMaxInputSplitSize(job,10*1024*1024);
+        //添加输入路径
+        //CombineFileInputFormat.addInputPaths(job,"/wordcount/in");
+
         //指定要处理的数据路径
         //这个路径下的所有文件都会去读的
-        FileInputFormat.setInputPaths(new JobConf(conf),new Path("/wordcount/in"));
+        FileInputFormat.addInputPaths(job,"/wordcount/in");
 
 
-        //指定处理结果存放路径
-        FileOutputFormat.setOutputPath(new JobConf(conf),new Path("/wordcount/out"));
+        //指定处理结果存放路径,这个文件目录一定要不存在
+        FileOutputFormat.setOutputPath(job,new Path("/wordcount/out"));
 
         //提交任务到集群
         // 参数含义：true表示将运行进度等信息及时输出给用户，false的话只是等待作业结束
