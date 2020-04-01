@@ -1,5 +1,6 @@
 package com.cht.mapreduce.wordcount;
 
+import com.cht.mapreduce.wordcount.partition.MyPartitioner;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -41,6 +42,11 @@ public class WordCount  {
         job.setReducerClass(WordCountReduce.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
+
+        //设置reducetask并行度
+        job.setNumReduceTasks(3);
+        //为job设置分区规则
+        job.setPartitionerClass(MyPartitioner.class);
 
         //设置切片大小 330 byte
         //FileInputFormat.setMaxInputSplitSize(job,330);
