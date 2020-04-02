@@ -43,10 +43,14 @@ public class WordCount  {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 
+        //指定combiner类
+        //job.setCombinerClass(WordCountReduce.class);
+
+
         //设置reducetask并行度
-        job.setNumReduceTasks(3);
+        //job.setNumReduceTasks(3);
         //为job设置分区规则
-        job.setPartitionerClass(MyPartitioner.class);
+        //job.setPartitionerClass(MyPartitioner.class);
 
         //设置切片大小 330 byte
         //FileInputFormat.setMaxInputSplitSize(job,330);
