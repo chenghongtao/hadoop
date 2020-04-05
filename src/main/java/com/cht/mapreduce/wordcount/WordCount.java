@@ -27,6 +27,11 @@ public class WordCount  {
 
         //首先要描述一个作业类，哪个map，哪个reduce，输入输出路径是什么   ----------Job对象
         Configuration conf=new Configuration();
+
+        //跨平台运行
+        conf.set("mapreduce.app-submission.cross-platform", "true");
+        //设置用户名
+        System.setProperty("HADOOP_USER_NAME","root");
         Job job=Job.getInstance(conf);
 
         //设置驱动类
@@ -65,15 +70,16 @@ public class WordCount  {
 
         //指定要处理的数据路径
         //这个路径下的所有文件都会去读的
-        FileInputFormat.addInputPaths(job,"/wordcount/in");
+        FileInputFormat.addInputPath(job,new Path("hdfs://192.168.2.10:9000/hadoop/wordcount"));
 
 
         //指定处理结果存放路径,这个文件目录一定要不存在
-        FileOutputFormat.setOutputPath(job,new Path("/wordcount/out"));
+        FileOutputFormat.setOutputPath(job,new Path("hdfs://192.168.2.10:9000/hadoop/wordcount/out01"));
 
         //提交任务到集群
         // 参数含义：true表示将运行进度等信息及时输出给用户，false的话只是等待作业结束
         //          为true的话可以获取map task和 reduce task 任务的进度
+        //也就是打印日志
         boolean b = job.waitForCompletion(true);
 
         System.exit(b?0:1);
