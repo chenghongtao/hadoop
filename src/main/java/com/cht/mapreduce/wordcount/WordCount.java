@@ -1,12 +1,9 @@
 package com.cht.mapreduce.wordcount;
 
-import com.cht.mapreduce.wordcount.partition.MyPartitioner;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.lib.CombineFileInputFormat;
-import org.apache.hadoop.mapred.lib.CombineTextInputFormat;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -30,21 +27,26 @@ public class WordCount  {
 
         //跨平台运行
         conf.set("mapreduce.app-submission.cross-platform", "true");
+
         //设置用户名
         System.setProperty("HADOOP_USER_NAME","root");
+
+        //获取job对象
         Job job=Job.getInstance(conf);
 
         //设置驱动类
         job.setJarByClass(WordCount.class);
 
-        //指定map类和输出key和输出value的类型
+        //指定mapper和reduce类
         job.setMapperClass(WordCountMapper.class);
+        job.setReducerClass(WordCountReduce.class);
+
+        //指定输出key和输出value的类型
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(IntWritable.class);
 
 
-        //指定reduce和输出key和value的类型
-        job.setReducerClass(WordCountReduce.class);
+        //指定输出key和value的类型
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 
