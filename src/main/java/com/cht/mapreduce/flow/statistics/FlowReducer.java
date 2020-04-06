@@ -1,10 +1,9 @@
 package com.cht.mapreduce.flow.statistics;
 
-import com.cht.mapreduce.statistics.model.FlowBean;
+import com.cht.mapreduce.flow.model.FlowBean;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 
 import java.io.IOException;
 

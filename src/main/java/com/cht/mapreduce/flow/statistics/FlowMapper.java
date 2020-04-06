@@ -1,6 +1,6 @@
 package com.cht.mapreduce.flow.statistics;
 
-import com.cht.mapreduce.statistics.model.FlowBean;
+import com.cht.mapreduce.flow.model.FlowBean;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;

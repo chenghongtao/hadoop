@@ -1,6 +1,6 @@
 package com.cht.mapreduce.flow.statistics;
 
-import com.cht.mapreduce.statistics.model.FlowBean;
+import com.cht.mapreduce.flow.model.FlowBean;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
