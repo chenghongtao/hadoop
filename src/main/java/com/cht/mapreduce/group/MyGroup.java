@@ -18,10 +18,13 @@ public class MyGroup extends WritableComparator {
         super(ScoreBean.class,true);
     }
 
+    //分组方法
     @Override
     public int compare(WritableComparable a, WritableComparable b) {
+        
+        //只返回为0的值
         ScoreBean asb=(ScoreBean)a;
         ScoreBean bsb=(ScoreBean)b;
-        return asb.compareTo(bsb);
+        return asb.getCourse().compareTo(bsb.getCourse());
     }
 }
