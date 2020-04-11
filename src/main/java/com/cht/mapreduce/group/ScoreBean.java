@@ -53,23 +53,28 @@ public class ScoreBean implements WritableComparable<ScoreBean> {
 
     /**
      * 降序排列
-     * @param o
-     * @return
      */
     @Override
     public int compareTo(ScoreBean o) {
-        return o.getScore()-this.score>0?1:(o.getScore()-this.score==0?0:-1);
+        //首先进行按照课程进行排序，目的是到reduce端，所有的课程在一块
+        int tmp = this.getCourse().compareTo(o.getCourse());
+
+        //课程相同的时候才进行排序
+        if (tmp == 0) {
+            return o.getScore() - this.score > 0 ? 1 : (o.getScore() - this.score == 0 ? 0 : -1);
+        }
+        return tmp;
     }
 
     @Override
     public void write(DataOutput out) throws IOException {
-           out.writeDouble(this.score);
-           out.writeUTF(this.course);
+        out.writeDouble(this.score);
+        out.writeUTF(this.course);
     }
 
     @Override
     public void readFields(DataInput in) throws IOException {
-        this.score=in.readDouble();
-        this.course=in.readUTF();
+        this.score = in.readDouble();
+        this.course = in.readUTF();
     }
 }

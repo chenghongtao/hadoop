@@ -18,6 +18,7 @@ public class GroupReducer extends Reducer<ScoreBean, Text,Text, NullWritable> {
     @Override
     protected void reduce(ScoreBean key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 
+        System.out.println("------------------------------------------------------------------------");
         //查看传递的数据
           for(Text t:values){
               System.out.println(t.toString());
