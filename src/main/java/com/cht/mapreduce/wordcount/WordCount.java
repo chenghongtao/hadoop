@@ -6,6 +6,8 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.jobcontrol.ControlledJob;
+import org.apache.hadoop.mapreduce.lib.jobcontrol.JobControl;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
@@ -83,6 +85,32 @@ public class WordCount  {
         //          为true的话可以获取map task和 reduce task 任务的进度
         //也就是打印日志
         boolean b = job.waitForCompletion(true);
+
+//        //创建jobcontrol对象,并且添加一个组,参数为组名
+//        Job job1=Job.getInstance();
+//        Job job2=Job.getInstance();
+//        JobControl jobctl =new JobControl("test");
+//
+//        //将job转换为可控制的job
+//        ControlledJob job01=new ControlledJob(job1.getConfiguration());
+//        ControlledJob job02=new ControlledJob(job2.getConfiguration());
+//
+//        //添加依赖关系（job2 依赖 job1）
+//        job02.addDependingJob(job01);
+//
+//        //将多个job添加到jobcontrol
+//        jobctl.addJob(job01);
+//        jobctl.addJob(job02);
+//
+//        //多job串联是以线程的方式启动的，JobControl是实现Runnable接口的，所以创建线程
+//        Thread t=new Thread(jobctl);
+//        //启动线程
+//        t.start();
+//
+//        //所有job完成，停止线程
+//        while(!jobctl.allFinished()){
+//            t.sleep(500);
+//        }
 
         System.exit(b?0:1);
     }
