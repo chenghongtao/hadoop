@@ -103,7 +103,8 @@ public class ReduceJoin {
                 String proStr=pro.substring(2);
                 for(String order : orders){
                     String orderStr=order.substring(2);
-                    String result=pro+"\t"+orderStr;
+                    String result=proStr+"\t"+orderStr;
+                    resultText.set(result);
                     context.write(resultText,NullWritable.get());
                 }
             }
