@@ -13,6 +13,8 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +34,7 @@ public class MapJoin {
          *    pid   name    category_id price
          */
         @Override
-        protected void setup(Context context) throws IOException, InterruptedException {
+        protected void setup(Context context) throws IOException {
             Path cacheFile = context.getLocalCacheFiles()[0];
             String path=cacheFile.getName();
             BufferedReader br=new BufferedReader(new FileReader(path));
@@ -59,7 +61,7 @@ public class MapJoin {
              }
         }
 
-        public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
+        public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException, URISyntaxException {
             Configuration conf=new Configuration();
 
             conf.set("fs.defaultFS","hdfs://hadoop01:9000");
@@ -75,6 +77,9 @@ public class MapJoin {
             //Mapper的输出就是结果的输出
             job.setMapOutputValueClass(NullWritable.class);
             job.setMapOutputKeyClass(Text.class);
+
+            //将文件加载到缓冲区中
+            job.addCacheFile(new URI("/hadoop/cache"));
 
             FileInputFormat.addInputPath(job,new Path("/hadoop/join/mapper"));
 
