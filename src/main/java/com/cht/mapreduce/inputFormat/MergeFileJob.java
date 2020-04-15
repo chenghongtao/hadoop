@@ -45,6 +45,8 @@ public class MergeFileJob {
 
         Job job= Job.getInstance(conf);
 
+        job.setJarByClass(MergeFileJob.class);
+
         job.setMapperClass(MyMapper.class);
         job.setReducerClass(MyReduce.class);
 
