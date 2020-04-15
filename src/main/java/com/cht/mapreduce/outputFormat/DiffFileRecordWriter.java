@@ -24,7 +24,7 @@ public class DiffFileRecordWriter extends RecordWriter<Text, DoubleWritable> {
         Configuration conf = context.getConfiguration();
         FileSystem fs = FileSystem.get(conf);
         more = fs.create(new Path("/hadoop/difffile/out01"));
-        less = fs.create(new Path("/hadoop/difffile/out01"));
+        less = fs.create(new Path("/hadoop/difffile/out02"));
     }
 
     //写方法
